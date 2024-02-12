@@ -7,4 +7,4 @@ Documenting here how I did and the results.
 
 How to write a program in Go that handles an http POST request with multiple parameters ?
 
-with : ChatGPT, Ollama model Code (7b), Codeium (use ChatGPT)
+with : ChatGPT, Ollama model Code (7b), Codeium (use ChatGPT), Ollama model DeepSeek Coder (6.7b) 
