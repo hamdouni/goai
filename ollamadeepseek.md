@@ -2,6 +2,7 @@
 
 >>> How to write a program in Go that handles an http POST request with multiple parameters ?
 ...
+
 Here is a simple example of a HTTP server written in
 Golang which can handle post requests from clients having
 multiple parameters. This example uses the "net/http"
@@ -59,6 +60,7 @@ containing parameters like {"param1": "value1", "param2":
 2}.
 
 >>> Can you provide some tests for this program ?
+
 Sure, let's use the `net/http/httptest` package to test
 our handler function. We'll create a new request and pass
 it into the handler along with an httpRecorder which
@@ -136,6 +138,7 @@ status code returned by the server is checked against the
 expected value.
 
 >>> Can you write tests with curl ?
+
 Sure, here's how you can use `curl` command to test your
 HTTP POST endpoint from a shell script:
 
@@ -174,6 +177,7 @@ with the actual response from the server.
 
 >>> the program does not seem to return a json response. Can yo
 ... u fix it ?
+
 The provided code was returning an HTTP 200 (OK) status for all requests because it's only printing out the parameters in the console and not sending any JSON response back to the client. If we want to send a JSON
 response, we need to write that as well. Here is how you can modify the handler function:
 
@@ -223,6 +227,7 @@ to the client's request. The content-type of the response is set to "application
 
 
 >>> Can you write the curl command to test this program ?
+
 Certainly! Here's how you can use `curl` command to test your HTTP POST endpoint from a shell script (test.sh):
 
 Let's assume that you have started your Go program and it is listening on port 8080. The following bash script sends a curl request:

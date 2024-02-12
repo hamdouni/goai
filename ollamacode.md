@@ -99,5 +99,3 @@ sending form data in a POST request. The `-d` or `--data` option specifies the f
 These are just a few examples of how you can use `curl` to make POST requests with different types of data. You can
 refer to the `curl` manual for more information on all the options and features that it provides.
 
->>> Send a message (/? for help)
-
