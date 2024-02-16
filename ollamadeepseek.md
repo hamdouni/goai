@@ -255,3 +255,76 @@ You can run this script with `bash test.sh` command. It sends a POST request to 
 "Test passed." Otherwise, it prints "Test failed." along with the actual response from the server.
 
 
+>>> can you provide me with a nice slogan for an extension of Firefox browser with the word 'zen' inside and inspiring unclutter space, purism and clean inte
+... rface ?
+
+Sure, I can help with that! Here are some suggestions:
+
+1. "Firefox Zen - Uncluttering Space with Purism and Clean Interface"
+2. "Purify Your Webspace with Firefox Zen"
+3. "Unleashing the Power of Code in Firefox Zen"
+4. "Firefox Zen - Where Purism Meets Elegance"
+5. "Clean Slate for Uncluttered Webspaces: Firefox Zen"
+6. "Escape to Firefox Zen, where Purism and Clean Interface Dwell"
+7. "Firefox Zen - Empowering You with Code Purism"
+8. "Purify Your Webspace in Firefox Zen: A Beautifully Clean Interface"
+9. "Unclutter Space with Firefox Zen: Cleaner, More Powerful Internet Browser"
+10. "Bring Peace to Your Webspaces: Firefox Zen"
+
+Please remember that the availability of these slogans can change over time as we learn more about your specific audience and what you want to
+communicate.
+
+>>> Let's use 'Zen Fox' as the name of the product. Can you retry ?
+
+Sure, here are some updated slogan suggestions for "ZenFox":
+
+1. "Empower Your Webspace with ZenFox"
+2. "Purify Your Code in ZenFox - A Clean and Elegant Firefox Extension"
+3. "Unclutter the Internet with ZenFox: Purifying your Webspaces"
+4. "ZenFox: Where Purism Meets Clean Interface"
+5. "Clean Slate for Uncluttered Webspaces: ZenFox"
+6. "Bring Peace to Your Code in Firefox - ZenFox"
+7. "Enjoy the Power of ZenFox: A Beautifully Clean Firefox Extension"
+8. "ZenFox: Where Purism Meets Elegance and Functionality"
+9. "Code Purism at its Finest with ZenFox"
+10. "The Cleaner, More Powerful Browser - ZenFox"
+
+>>> Reformulate this paragraph : "For an immersive experience, you need to add a userChrome style in your Firefox profile.
+...
+... Open your firefox configurations and turn style modification on by following this steps :
+...
+... - Type about:config in the search bar of Firefox.
+... - Search for "toolkit.legacyUserProfileCustomizations.stylesheets" and set the value to "true".
+...
+... Now we'll add the userChrome in the right folder :
+...
+... - Type about:support in the search bar of Firefox and click on the “Open Folder” button on the right of "Profile Folder" to open it.
+... - When the folder opens, search for a folder called "chrome", if you don't find it create one.
+... - Inside the "chrome" folder, drop the "userChrome.css" file (from theme folder).
+... - Restart firefox.
+
+Here is your paragraph reformulated in a more concise and user-friendly format :
+
+To get started with customizing your Firefox experience, you need to enable some settings via about:config. Navigate to it by typing "about:config"
+into the search bar of Firefox and set the value for "toolkit.legacyUserProfileCustomizations.stylesheets" to true. After that, we'll move on to
+setting up your userChrome style :
+
+1. Open your Firefox configurations by searching for "about:support".
+2. Click on the "Open Folder" button next to "Profile Folder" to open it.
+3. In this folder, look for a folder named "chrome". If you don't find one, create one.
+4. Drop your "userChrome.css" file (from theme folder) into the "chrome" folder.
+5. Finally, restart Firefox for changes to take effect. Your customizations should now be live!
+
+>>> Peux tu la refaire en français ?
+
+Oui, voici votre paragraphe reformulé en français :
+
+Pour commencer avec une expérience immersive personnalisée de Firefox, vous devez activer certains paramètres via about:config. Pour cela, tapez
+"about:config" dans la barre de recherche de Firefox et définissez la valeur pour "toolkit.legacyUserProfileCustomizations.stylesheets" sur true. Après
+cela, nous allons passer à l'installation de votre style userChrome :
+
+1. Ouvrez vos paramètres de configuration Firefox en cherchant "about:support".
+2. Cliquez sur le bouton "Ouvrir le dossier" situé à côté de "Dossier Profil" pour l'ouvrir.
+3. Dans ce dossier, recherchez un dossier appelé "chrome". Si vous ne le trouvez pas, créez-en un.
+4. Glissez votre fichier "userChrome.css" (de la rubrique thèmes) dans le dossier "chrome".
+5. Finalement, redémarrez Firefox pour que les modifications soient effectivement appliquées ! Votre personnalisation doit maintenant être en ligne!
