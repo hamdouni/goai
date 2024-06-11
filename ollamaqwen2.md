@@ -1,5 +1,12 @@
 # Déroulé du test avec le model 7b
 
+- **avis général** :
+    - réponse plutôt rapide (<1mn)
+    - le code pour le programme principal était correct du premier coup
+    - le code pour le test était faux (l'appel à la fonction a testé n'était pas le bon), les instructions n'étaient pas corrects et la convention de nommage Go pour les tests n'était pas respecté (test_main.go au lieu de main_test.go) 
+    - lorsque j'ai tenté de le corriger en lui indiquant ce qui n'allait pas dans le test, il m'a refait la même erreur
+    - la commande CURL était juste, mais il n'a pas tenu compte du fait qu'il avait écrit un programme Go qui n'acceptait que les POST request et il m'a aussi proposé un CURL avec du GET
+
 >>> How to write a program in Go that handles an http POST request with multiple parameters ?
 
 To create a Go program that accepts HTTP POST requests and processes multiple parameters, you can use the `net/http` package
@@ -193,4 +200,169 @@ them.
 
 This setup uses an in-memory HTTP server created by `httptest.NewServer()` to simulate server responses, and then compares the
 received response body and status code against expected results using `t.Errorf()`.
+
+>>> The test program does not work. The HandlePost function does not exist in the main program, because it is named handlePost with an lower case h. I think you need to rewrite the test program. Also, in Go, the test file must be named with 'test' as a suffix and not as a prefix, so your instruction are bad. Can you try again ?
+
+You're correct that my instructions were somewhat confusing. You should use `TestHandlePost` function name in your test file
+because it matches the function being tested.
+
+Also, naming conventions for Go testing packages typically involve prefixing them with 'test', which means your main test file
+would look like `test_main.go`. I apologize for the confusion and thank you for clarifying this important point.
+
+Below is a revised version of my previous answer based on those corrections:
+
+```go
+package test_main
+
+import (
+        "bufio"
+        "bytes"
+        "fmt"
+        "net/http/httptest"
+        "testing"
+)
+
+// Assuming HandlePost is now correctly named as handlePost function in main.go.
+func TestHandlePost(t *testing.T) {
+        t.Run("Successful POST request", func(t *testing.T) {
+                testServer := httptest.NewServer(http.HandlerFunc(handlePost))
+                defer testServer.Close()
+
+                client := &http.Client{}
+                req, err := http.NewRequest("POST", testServer.URL, strings.NewReader(`firstParam=hello&secondParam=world`))
+                if err != nil {
+                        t.Fatal(err)
+                }
+                req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+                resp, err := client.Do(req)
+                if err != nil {
+                        t.Error(err)
+                        return
+                }
+
+                defer resp.Body.Close()
+
+                body, _ := ioutil.ReadAll(resp.Body)
+
+                wantBody := `firstParam = hello\nsecondParam = world\n`
+                if string(body) != wantBody {
+                        t.Errorf("Unexpected response body: %s", string(body))
+                }
+        })
+
+        t.Run("POST request with no parameters", func(t *testing.T) {
+                testServer := httptest.NewServer(http.HandlerFunc(handlePost))
+                defer testServer.Close()
+
+                client := &http.Client{}
+                req, err := http.NewRequest("POST", testServer.URL, strings.NewReader(""))
+                if err != nil {
+                        t.Fatal(err)
+                }
+                req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+                resp, err := client.Do(req)
+                if err != nil {
+                        t.Error(err)
+                }
+
+                defer resp.Body.Close()
+
+                body, _ := ioutil.ReadAll(resp.Body)
+
+                wantStatus := http.StatusNotAcceptable
+                wantBody := `This endpoint only accepts HTTP POST requests`
+                if resp.StatusCode != wantStatus || string(body) != wantBody {
+                        t.Errorf("Unexpected response: status code=%d body=\"%s\"", resp.StatusCode, string(body))
+                }
+        })
+
+        t.Run("GET request", func(t *testing.T) {
+                testServer := httptest.NewServer(http.HandlerFunc(handlePost))
+                defer testServer.Close()
+
+                client := &http.Client{}
+                req, err := http.NewRequest("GET", testServer.URL, nil)
+                if err != nil {
+                        t.Fatal(err)
+                }
+
+                resp, err := client.Do(req)
+                if err != nil {
+                        t.Error(err)
+                }
+
+                defer resp.Body.Close()
+
+                body, _ := ioutil.ReadAll(resp.Body)
+
+                wantStatus := http.StatusMethodNotAllowed
+                wantBody := `This endpoint only accepts HTTP POST requests`
+                if resp.StatusCode != wantStatus || string(body) != wantBody {
+                        t.Errorf("Unexpected response: status code=%d body=\"%s\"", resp.StatusCode, string(body))
+                }
+        })
+}
+
+func handlePost(w http.ResponseWriter, r *http.Request) {
+        fmt.Fprintf(w, "%v", "firstParam = "+r.URL.Query().Get("firstParam")+"\n"+
+        "secondParam = "+r.URL.Query().Get("secondParam"))
+}
+```
+
+This revised version uses the `handlePost` function as it exists in your main program (`main.go`) and changes some of the test
+scenarios to better reflect potential outcomes.
+
+Remember, this is still a simplification for demonstration purposes. In practice, testing might involve more complex scenarios
+depending on your specific application needs.
+
+Please ensure you rename your test file back to `test_main.go` as per Go conventions if it's currently prefixed with 'test'.
+
+Now you should be able to run these tests using `go test`. Let me know if there are any other questions!
+
+>>> can you provide a curl command to test the Go program ?
+
+Certainly, here is how you might use `curl` to simulate sending HTTP requests to your Go program:
+
+### POST Request:
+If you want to send a simple POST request with parameters like "firstParam" and "secondParam", you can use `curl` as follows:
+```bash
+curl -X POST \
+  'http://localhost:8080/your-endpoint' \
+  -d 'firstParam=hello' \
+  -d 'secondParam=world'
+```
+This command sends a POST request to `http://localhost:8080/your-endpoint` with two parameters: "firstParam" set to "hello", and
+"secondParam" set to "world".
+
+### GET Request:
+If you want to send a simple GET request, you can use the following curl command:
+
+```bash
+curl 'http://localhost:8080/your-endpoint?firstParam=hello&secondParam=world'
+```
+This sends a GET request to `http://localhost:8080/your-endpoint` with parameters "firstParam" set to "hello", and "secondParam"
+set to "world".
+
+### Testing using Postman:
+Alternatively, you can use tools like [Postman](https://www.postman.com/) or similar API testing tools which allow graphical UI
+operations for sending requests including POST with body data and GET requests.
+
+For example, in Postman:
+1. **Add Request**: Select `POST` as your HTTP method.
+2. **Specify URL**: Enter `http://localhost:8080/your-endpoint`.
+3. **Body Parameters**: Click on the `Body` tab below your request details. Use `Form Data`, specify keys (`firstParam`,
+`secondParam`) and values (e.g., `"hello"`, `"world"`).
+4. **Send Request**: Click the send button to execute the request.
+
+Remember, for these commands to work, you need to replace `'http://localhost:8080/your-endpoint'` with your actual endpoint URL in
+the Go application, and adjust the values of `firstParam`, `secondParam`, etc., as needed.
+
+Make sure your server is running on `http://localhost:8080` or whatever you've specified when you're trying to access these URLs
+through curl or Postman.
+
+### Important Note:
+To use the commands above, ensure that the Go application is running and listening on the correct port (`http://localhost:8080`).
+Also, if your environment requires additional configuration (like SSL/TLS certificates), adjust accordingly.
 
